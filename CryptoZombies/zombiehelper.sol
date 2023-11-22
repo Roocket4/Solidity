@@ -12,7 +12,8 @@ contract ZombieHelper is ZombieFeeding {
   }
 
   function withdraw() external onlyOwner {
-    address _owner = owner();
+    address ownerAddress = owner();
+    address payable _owner = address(uint160(ownerAddress));
     _owner.transfer(address(this).balance);
   }
 
@@ -44,5 +45,4 @@ contract ZombieHelper is ZombieFeeding {
     }
     return result;
   }
-
 }
