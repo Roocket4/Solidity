@@ -9,11 +9,11 @@ contract Twitter {
         tweets[msg.sender].push(_tweet);
     }
 
-    function getTweets(address _owner) public view returns(string[] memory) {
-        return tweets[_owner];
-    }
-
     function getTweet(address _owner, uint _index) public view returns(string memory) {
         return tweets[_owner][_index];
+    }
+
+    function getTweets(address _owner) public view returns(string[] memory) {
+        return tweets[_owner];
     }
 }
