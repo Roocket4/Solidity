@@ -36,12 +36,12 @@ async function createTweet(content) {
 
 async function displayTweets(userAddress) {
   const tweetsContainer = document.getElementById("tweetsContainer");
-  const tempTweets = [];
+  var tempTweets = [];
   tweetsContainer.innerHTML = "";
   tempTweets = await contract.methods.getTweets(userAddress).call();
   const tweets = [...tempTweets];
   tweets.sort((a, b) => b.timestamp - a.timestamp);
-  
+
   for (let i = 0; i < tweets.length; i++) {
     const tweetElement = document.createElement("div");
     tweetElement.className = "tweet";
@@ -103,11 +103,9 @@ function shortAddress(address, startLength = 6, endLength = 4) {
 }
 
 async function likeTweet(author, id) {
+  const accounts = await web3.eth.getAccounts();
   try {
-    // 8️⃣ call the likeTweet function from smart contract
-    // INPUT: author and id
-    // GOAL: Save the like in the smart contract
-    // HINT: don't forget to use await 😉 👇
+    contract.methods.likeTweet(author, id).send({ from: accounts[0] });
   } catch (error) {
     console.error("User rejected request:", error);
   }
